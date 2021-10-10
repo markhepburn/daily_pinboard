@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import requests
 
 
 # https://pinboard.in/api/v2/overview
@@ -15,3 +16,5 @@ class PinboardAPI:
         self.account_token = envdict['PINBOARD_TOKEN']
         self.email = envdict['EMAIL']
 
+    def _api_get(self):
+        pass
