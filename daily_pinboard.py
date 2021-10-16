@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import datetime
 import random
 
 from mako.template import Template
@@ -40,8 +41,14 @@ class PinboardAPI:
 
 
 def enrich_data(bookmarks):
-    """Placeholder for now; thinking is to add styling, without
-    calculating that in the template"""
+    """Data conversion, any enrichment necessary"""
+    # The mutating side-effects make my skin crawl now, but I'll live with it here:
+    for bookmark in bookmarks:
+        # parse date
+        date_formatted = datetime.date.fromisoformat(bookmark['time'][:10])
+        bookmark['date_formatted'] = date_formatted.strftime('%d %b, %Y')
+        # split tags
+        bookmark['tags'] = bookmark['tags'].split(' ')
     return bookmarks
 
 
