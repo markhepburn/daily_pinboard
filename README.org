@@ -46,7 +46,8 @@
 
   It uses the "[[https://pinboard.in/api/#posts_all][all bookmarks]]" API; note that this is rate-limited so
   if you are testing you probably want to temporarily change it to
-  [[https://pinboard.in/api/#posts_recent][~posts/recent~]].
+  [[https://pinboard.in/api/#posts_recent][~posts/recent~]].  There is no pagination for now, because I don't
+  have that many bookmarks yet.
 
 ** Local Development
 
