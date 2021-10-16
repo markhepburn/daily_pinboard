@@ -26,7 +26,7 @@ jobs:
         env:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           PINBOARD_TOKEN: ${{ secrets.PINBOARD_TOKEN }}
-          ACCOUNT_EMAIL: ${{ secrets.ACCOUNT_EMAIL }}
+          EMAIL: ${{ secrets.EMAIL }}
 
       - uses: dawidd6/action-send-mail@v3
         with:
