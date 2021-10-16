@@ -1,0 +1,40 @@
+name: Daily link-history email
+on:
+  workflow_dispatch:            # Enable manual invocation for testing
+  schedule:
+    - cron: "0 22 * * *"        # 8am daily (AEST)
+
+jobs:
+  Send-Email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - uses: syphar/restore-virtualenv@v1
+        id: cache-virtualenv
+
+      - uses: syphar/restore-pip-download-cache@v1
+        if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+
+      - run: pip install -r requirements.txt
+        if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+
+      - run: python projects_status.py
+        env:
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+          PINBOARD_TOKEN: ${{ secrets.PINBOARD_TOKEN }}
+          ACCOUNT_EMAIL: ${{ secrets.ACCOUNT_EMAIL }}
+
+      - uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Your Pinboard Daily 5"
+          html_body: file://email.html
+          from: ${{ secrets.ACCOUNT_EMAIL }}
+          to: ${{ secrets.ACCOUNT_EMAIL }}
