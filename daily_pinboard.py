@@ -58,6 +58,7 @@ def format_email(bookmarks):
     txt = tmpl.render(bookmarks=bookmarks)
     return txt
 
+
 def main():
     pinboard = PinboardAPI()
     daily_bookmarks = pinboard.random_bookmarks(5)
