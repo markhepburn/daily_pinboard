@@ -8,6 +8,9 @@ today = datetime.date.today()
 <ul>
   % for bookmark in bookmarks:
   <li><a href="${bookmark['href']}">${bookmark['description']}</a> on <span class="date">${bookmark['date_formatted']}</span>
+    % if bookmark['description']:
+    <span class="description">${bookmark['description']}</span>
+    % endif
     % for tag in bookmark['tags']:
     <span class="tag">${tag}</span>
     % endfor
