@@ -1,0 +1,57 @@
+#+STARTUP: showall
+#+OPTIONS: ^:nil
+
+* Overview
+
+  [[https://pinboard.in/][Pinboard]] is a great bookmarking service.  I was grandfathered in on
+  the original one-time payment plan, and recently switched to a
+  regular subscription when he politely requested I consider it.
+
+  The thing is... I hardly ever /use/ pinboard!  Bookmarking just
+  isn't on my radar these days; that's what search-engines are for.
+
+  What I've long wanted though is some sort of serendipity in the
+  service.  I don't often have a problem locating something again if I
+  remember what it was, but I have no idea what I've since forgotten
+  about.  When I [[https://blog.markhepburn.com/posts/using-github-to-host-recurring-jobs/][recently realised]] that it was pretty easy to
+  implement and host, I knew this little project wasn't far away.  In
+  readiness, I've tried to be a lot more cavailier about bookmarking
+  anything that seems randomly interesting.
+
+  This repository (clone away!) will send you a daily email of 5
+  random links from your pinboard account.
+
+* Want to run your own?
+
+  Fork this repository!  It should run as-is, after configuration.
+
+  You will need to create a [[https://help.getharvest.com/api-v2/authentication-api/authentication/authentication/][personal access token]] for the API.  Note
+  that some API calls require admin privileges (I haven't checked
+  against a project-manager role).  It is also worth noting the
+  [[https://help.getharvest.com/api-v2/introduction/overview/general/][overview page]].  This script will include your configured email
+  address in the User-Agent header as they require.
+
+  You will need to create the following [[https://docs.github.com/en/actions/reference/encrypted-secrets][secrets]] for the action:
+
+  | Secret Name    | Description                                                                                         |
+  |----------------+-----------------------------------------------------------------------------------------------------|
+  | EMAIL          | The recipient for this email                                                                        |
+  | PINBOARD_TOKEN | Find this on the [[https://pinboard.in/settings/password][settings password page]].                                                            |
+  | API_ENDPOINT   | Could be hard-coded, but the upcoming v2 API mentions a test endpoint.  https://api.pinboard.in/v1/ |
+  | SMTP_USERNAME  | The gmail (hardcoded) email address; may or may not be the same as EMAIL                            |
+  | SMTP_PASSWORD  | The gmail password associated.  (May be an [[https://support.google.com/accounts/answer/185833?hl=en][application password]])                                    |
+
+  It uses [[https://docs.makotemplates.org/en/latest/][Mako Templates]] if you need to edit the email output (and you
+  probably do, not much attention has been paid there yet).
+
+  It uses the "[[https://pinboard.in/api/#posts_all][all bookmarks]]" API; note that this is rate-limited so
+  if you are testing you probably want to temporarily change it to
+  [[https://pinboard.in/api/#posts_recent][~posts/recent~]].
+
+** Local Development
+
+   You have two options when creating the initial ~PinboardAPI~
+   object; pass it a dictionary with your configuration variables
+   above (it only needs the first three), or by default it will load
+   from the environment.  I prefer the latter, using [[https://direnv.net/][direnv]] (the
+   ~.envrc~ file is in ~.gitignore~).  It also has [[https://github.com/wbolster/emacs-direnv][Emacs support]].
