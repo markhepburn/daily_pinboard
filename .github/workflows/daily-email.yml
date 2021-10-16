@@ -36,5 +36,5 @@ jobs:
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "Your Pinboard Daily 5"
           html_body: file://email.html
-          from: ${{ secrets.ACCOUNT_EMAIL }}
-          to: ${{ secrets.ACCOUNT_EMAIL }}
+          from: ${{ secrets.EMAIL }}
+          to: ${{ secrets.EMAIL }}
