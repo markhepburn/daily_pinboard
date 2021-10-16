@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import datetime
+import os
 import random
 
 from mako.template import Template
@@ -61,6 +62,7 @@ def main():
     pinboard = PinboardAPI()
     daily_bookmarks = pinboard.random_bookmarks(5)
     daily_bookmarks = enrich_data(daily_bookmarks)
+    txt = format_email(daily_bookmarks)
     with open('email.html', 'w') as f:
         f.write(txt)
 
