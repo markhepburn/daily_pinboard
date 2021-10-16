@@ -21,17 +21,22 @@ class PinboardAPI:
         self.account_token = envdict['PINBOARD_TOKEN']
         self.email = envdict['EMAIL']
 
-    def _api_get(self, endpoint, **params):
-        # Auth: auth_token query param (or basic auth)
-        pass
+    def _api_get(self, url, **params):
+        params = params or {}
+        params.update({
+            'auth_token': self.account_token,
+            'format': 'json',
+        })
+        res = requests.get(self.endpoint + url, params=params)
+        return res.json()
 
     def get_bookmarks(self):
-        pass
+        bookmarks = self._api_get('posts/recent')
+        return bookmarks['posts']
 
     def random_bookmarks(self, num_bookmarks):
-        pass
-
-    # random.sample(lst, num) returns non-repeating elements
+        bookmarks = self.get_bookmarks()
+        return random.sample(bookmarks, num_bookmarks)
 
 
 def enrich_data(bookmarks):
