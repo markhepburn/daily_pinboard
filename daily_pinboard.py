@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import random
 
+from mako.template import Template
 import requests
 
 
@@ -47,7 +48,9 @@ def format_email(bookmarks):
 def main():
     pinboard = PinboardAPI()
     daily_bookmarks = pinboard.random_bookmarks(5)
-    pass
+    daily_bookmarks = enrich_data(daily_bookmarks)
+    with open('email.html', 'w') as f:
+        f.write(txt)
 
 
 if __name__ == '__main__':
