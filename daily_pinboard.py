@@ -34,7 +34,8 @@ class PinboardAPI:
 
     def get_bookmarks(self):
         bookmarks = self._api_get('posts/all')
-        return bookmarks['posts']
+        # If using posts/recent for testing, return bookmarks['posts']
+        return bookmarks
 
     def random_bookmarks(self, num_bookmarks):
         bookmarks = self.get_bookmarks()
