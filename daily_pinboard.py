@@ -50,7 +50,7 @@ def enrich_data(bookmarks):
         date_formatted = datetime.date.fromisoformat(bookmark['time'][:10])
         bookmark['date_formatted'] = date_formatted.strftime('%d %b, %Y')
         # split tags
-        bookmark['tags'] = bookmark['tags'].split(' ')
+        bookmark['tags'] = bookmark['tags'].split(None)
     return bookmarks
 
 
