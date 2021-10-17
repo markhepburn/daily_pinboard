@@ -35,8 +35,9 @@
   | SMTP_USERNAME  | The gmail (hardcoded) email address; may or may not be the same as EMAIL                            |
   | SMTP_PASSWORD  | The gmail password associated.  (May be an [[https://support.google.com/accounts/answer/185833?hl=en][application password]])                                    |
 
-  It uses [[https://docs.makotemplates.org/en/latest/][Mako Templates]] if you need to edit the email output (and you
-  probably do, not much attention has been paid there yet).
+  It uses [[https://docs.makotemplates.org/en/latest/][Mako Templates]] if you need to edit the email output.  I
+  built the mine using [[https://maizzle.com/][Maizzle]], but obviously you can use whatever you
+  feel like.
 
   It uses the "[[https://pinboard.in/api/#posts_all][all bookmarks]]" API; note that this is rate-limited so
   if you are testing you probably want to temporarily change it to
