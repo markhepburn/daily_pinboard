@@ -56,7 +56,13 @@ today = datetime.date.today()
                 <table style="width: 100%;" cellpadding="0" cellspacing="0" role="presentation">
                   <tr>
                     <td class="sm-px-24" style="border-radius: 4px; background-color: #ffffff; padding-left: 48px; padding-right: 48px; text-align: left; font-size: 16px; line-height: 24px; color: #1f2937;">
-                      <p class="sm-leading-32" style="margin: 0; margin-top: 24px; margin-bottom: 12px; font-size: 24px; font-weight: 600; color: #000000;">Your daily links for ${today.strftime('%d %b, %Y')}</p>
+                      <p class="sm-leading-32" style="margin: 0; margin-top: 24px; margin-bottom: 12px; font-size: 24px; font-weight: 600; color: #000000;">
+                        <svg height="25.6" width="25.6">
+                          <rect height="25.6" rx="0.75%" width="25.6" x="0" y="0" style="fill:#182ef5;stroke-width:0.05"></rect>
+                          <path d="m 9.1162031,2.8000031 -6.3162,6.46135 2.8565,-0.1535 5.1128999,6.3072999 -0.60115,3.385 3.7585,-3.8456 8.87325,7.84545 -7.81935,-8.7698 3.908,-4.1523999 -3.75865,0.9221999 -6.0137999,-5.5381999" style="fill:#ffffff;stroke-width:0.05"></path>
+                        </svg>
+                        Your daily links for ${today.strftime('%d %b, %Y')}
+                      </p>
                     </td>
                   </tr>
                   % for bookmark in bookmarks:
