@@ -2,7 +2,7 @@ name: Daily link-history email
 on:
   workflow_dispatch:            # Enable manual invocation for testing
   schedule:
-    - cron: "0 22 * * *"        # 8am daily (AEST)
+    - cron: "0 20 * * *"        # 6am daily (AEST)
 
 jobs:
   Send-Email:
