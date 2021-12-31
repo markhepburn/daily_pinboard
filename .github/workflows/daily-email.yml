@@ -16,7 +16,7 @@ jobs:
       - uses: syphar/restore-virtualenv@v1
         id: cache-virtualenv
         with:
-          custom_cache_key: ${{ secrets.venv_cachebuster }}
+          custom_cache_key_element: ${{ secrets.venv_cachebuster }}
 
       - uses: syphar/restore-pip-download-cache@v1
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
