@@ -27,13 +27,14 @@
 
   You will need to create the following [[https://docs.github.com/en/actions/reference/encrypted-secrets][secrets]] for the action:
 
-  | Secret Name    | Description                                                                                         |
-  |----------------+-----------------------------------------------------------------------------------------------------|
-  | EMAIL          | The recipient for this email                                                                        |
-  | PINBOARD_TOKEN | Find this on the [[https://pinboard.in/settings/password][settings password page]].                                                            |
-  | API_ENDPOINT   | Could be hard-coded, but the upcoming v2 API mentions a test endpoint.  https://api.pinboard.in/v1/ |
-  | SMTP_USERNAME  | The gmail (hardcoded) email address; may or may not be the same as EMAIL                            |
-  | SMTP_PASSWORD  | The gmail password associated.  (May be an [[https://support.google.com/accounts/answer/185833?hl=en][application password]])                                    |
+  | Secret Name      | Description                                                                                         |
+  |------------------+-----------------------------------------------------------------------------------------------------|
+  | EMAIL            | The recipient for this email                                                                        |
+  | PINBOARD_TOKEN   | Find this on the [[https://pinboard.in/settings/password][settings password page]].                                                            |
+  | API_ENDPOINT     | Could be hard-coded, but the upcoming v2 API mentions a test endpoint.  https://api.pinboard.in/v1/ |
+  | SMTP_USERNAME    | The gmail (hardcoded) email address; may or may not be the same as EMAIL                            |
+  | SMTP_PASSWORD    | The gmail password associated.  (May be an [[https://support.google.com/accounts/answer/185833?hl=en][application password]])                                    |
+  | VENV_CACHEBUSTER | Set to a new value every time the cache expires                                                     |
 
   It uses [[https://docs.makotemplates.org/en/latest/][Mako Templates]] if you need to edit the email output.  I
   built the mine using [[https://maizzle.com/][Maizzle]], but obviously you can use whatever you
@@ -51,3 +52,12 @@
    above (it only needs the first three), or by default it will load
    from the environment.  I prefer the latter, using [[https://direnv.net/][direnv]] (the
    ~.envrc~ file is in ~.gitignore~).  It also has [[https://github.com/wbolster/emacs-direnv][Emacs support]].
+
+** Caveats
+
+   The scheduled action will not run forever without maintenance. The
+   virtualenv will eventually expire from the cache (see the
+   VENV_CACHEBUSTER secret, and also the [[https://github.com/syphar/restore-virtualenv/#custom_cache_key_element][setting]] it passes through
+   to). The action itself will be disabled after 60 days of repository
+   inactivity. (There may be other limits I haven't hit yet!)
+
