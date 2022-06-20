@@ -24,6 +24,7 @@ jobs:
       - run: pip install -r requirements.txt
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
 
+      - run: pip freeze
       - run: python daily_pinboard.py
         env:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
