@@ -12,17 +12,9 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-
-      - uses: syphar/restore-virtualenv@v1
-        id: cache-virtualenv
-        with:
-          custom_cache_key_element: ${{ secrets.venv_cachebuster }}
-
-      - uses: syphar/restore-pip-download-cache@v1
-        if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+          cache: 'pip'
 
       - run: pip install -r requirements.txt
-        if: steps.cache-virtualenv.outputs.cache-hit != 'true'
 
       - run: pip freeze
       - run: python daily_pinboard.py
