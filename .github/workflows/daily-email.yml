@@ -22,3 +22,6 @@ jobs:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           PINBOARD_TOKEN: ${{ secrets.PINBOARD_TOKEN }}
           EMAIL: ${{ secrets.EMAIL }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
