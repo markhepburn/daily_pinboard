@@ -22,14 +22,3 @@ jobs:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           PINBOARD_TOKEN: ${{ secrets.PINBOARD_TOKEN }}
           EMAIL: ${{ secrets.EMAIL }}
-
-      - uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.SMTP_SERVER }}
-          server_port: 465
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "Your Pinboard Daily 5"
-          html_body: file://email.html
-          from: ${{ secrets.EMAIL }}
-          to: ${{ secrets.EMAIL }}

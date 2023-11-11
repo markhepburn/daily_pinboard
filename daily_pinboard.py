@@ -2,6 +2,10 @@
 import datetime
 import os
 import random
+import smtplib
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from mako.template import Template
 import requests
@@ -42,6 +46,33 @@ class PinboardAPI:
         return random.sample(bookmarks, num_bookmarks)
 
 
+class EmailEndpoint:
+    def __init__(self, envdict=None):
+        super().__init__()
+        if not envdict:
+            envdict = os.environ
+        self._load(envdict)
+
+    def _load(self, envdict):
+        # Throw a KeyError if configuration isn't set:
+        self.server = envdict['SMTP_SERVER']
+        self.username = envdict['SMTP_USERNAME']
+        self.password = envdict['SMTP_PASSWORD']
+        self.email = envdict['EMAIL']
+
+    def create_msg(self, msg_html):
+        msg = MIMEMultipart()
+        msg['Subject'] = "Your Pinboard Daily 5"
+        msg['From'] = self.email
+        msg['To'] = self.email
+        msg.attach(MIMEText(msg_html, 'html'))
+
+    def send_msg(self, msg):
+        with smtplib.SMTP(self.server,) as server:
+            server.login(self.username, self.password)
+            server.send_message(msg)
+
+
 def enrich_data(bookmarks):
     """Data conversion, any enrichment necessary"""
     # The mutating side-effects make my skin crawl now, but I'll live with it here:
@@ -65,8 +96,10 @@ def main():
     daily_bookmarks = pinboard.random_bookmarks(5)
     daily_bookmarks = enrich_data(daily_bookmarks)
     txt = format_email(daily_bookmarks)
-    with open('email.html', 'w') as f:
-        f.write(txt)
+
+    email_endpoint = EmailEndpoint()
+    msg = email_endpoint.create_msg(txt)
+    email_endpoint.send_msg(msg)
 
 
 if __name__ == '__main__':
