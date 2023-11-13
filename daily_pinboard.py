@@ -68,7 +68,7 @@ class EmailEndpoint:
         msg.attach(MIMEText(msg_html, 'html'))
 
     def send_msg(self, msg):
-        with smtplib.SMTP(host=self.server, port=465) as server:
+        with smtplib.SMTP_SSL(host=self.server, port=465) as server:
             server.login(self.username, self.password)
             server.send_message(msg)
 
